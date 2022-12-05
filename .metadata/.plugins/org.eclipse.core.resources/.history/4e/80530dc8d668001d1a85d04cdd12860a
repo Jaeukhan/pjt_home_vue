@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.finalbe.model.mapper.ChartMapper">
+	<select id="listChart" parameterType="String" resultMap="days">
+		select * 
+		from avg_price
+	</select>
+	<resultMap type="ChartDto" id="days">
+		<result column="2021-08-21" property="day2108" />
+		<result column="2021-09-21" property="day2109"/>
+		<result column="2021-10-21" property="day2110" />
+		<result column="2021-11-21" property="day2111" />
+		<result column="2021-12-21" property="day2112" />
+		<result column="2022-01-22" property="day2201" />
+		<result column="2022-02-22" property="day2202" />
+		<result column="2022-03-22" property="day2203" />
+		<result column="2022-04-22" property="day2204" />
+		<result column="2022-05-22" property="day2205" />
+		<result column="2022-06-22" property="day2206" />
+		<result column="2022-07-22" property="day2207" />
+		<result column="2022-08-22" property="day2208" />
+	</resultMap>
+</mapper>

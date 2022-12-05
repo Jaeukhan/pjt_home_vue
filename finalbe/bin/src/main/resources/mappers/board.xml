@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.finalbe.model.mapper.BoardMapper">
+
+
+	<insert id="writeArticle" parameterType="boardDto" >
+		insert into board (user_id, subject, content, hit, register_time)
+		values (#{userid}, #{subject}, #{content}, 0, now())
+	</insert>
+	
+	<select id="listArticle" parameterType="map" resultMap="la">
+		select article_no, user_id, subject, content, hit,
+				case when date_format(register_time, '%Y%m%d') = date_format(now(), '%Y%m%d')
+				then date_format(register_time, '%H:%i:%s')
+				else date_format(register_time, '%y.%m.%d')
+				end register_time
+		from board
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				where subject like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'subject'">
+				where ${key} = #{word}
+			</if>
+		</if>
+		order by article_no desc
+		limit #{start}, #{spp}
+	</select>
+
+	
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		select count(article_no)
+		from board
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				where subject like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'subject'">
+				where ${key} = #{word}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getArticle" parameterType="int" resultMap="la">
+		select article_no, user_id, subject, content, hit, register_time
+		from board
+		where article_no = #{articleno}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update board
+		set hit = hit + 1
+		where article_no = #{articleno}
+	</update>
+	
+	<update id="modifyArticle" parameterType="boardDto">
+		update board
+		set subject = #{subject}, content = #{content}
+		where article_no = #{articleno}
+	</update>
+	
+<!--	<delete id="deleteMemo" parameterType="int">-->
+<!--		delete from memo-->
+<!--		where article_no = #{articleno}-->
+<!--	</delete>-->
+	
+	<delete id="deleteArticle" parameterType="int">
+		delete from board
+		where article_no = #{articleno}
+	</delete>
+	<resultMap type="boardDto" id="la">
+		<result column="user_id" property="userid"/>
+		<result column="article_no" property="articleno"/>
+		<result column="register_time" property="regtime"/>
+	</resultMap>
+</mapper>
+

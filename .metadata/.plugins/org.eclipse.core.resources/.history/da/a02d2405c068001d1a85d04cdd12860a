@@ -1,0 +1,8 @@
+package com.ssafy.finalbe.model;
+
+public class ChartDto {
+    private String region;
+    private int day2108,day2109,day2110,day2111,day2112,day2201,day2202,day2203, day2204, day2205,day2206,day2207,day2208,day2209,day2210,day2211,day2212;
+    public ChartDto(){}
+
+}

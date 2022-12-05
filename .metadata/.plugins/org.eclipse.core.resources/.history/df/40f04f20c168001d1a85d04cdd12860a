@@ -1,0 +1,14 @@
+package com.ssafy.finalbe.model.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.ssafy.finalbe.model.ChartDto;
+
+@Service
+public interface ChartService {
+	public List<ChartDto> listChart(String name) throws Exception;
+
+	public List<ChartDto> listChart(String name);
+}

@@ -1,0 +1,6 @@
+package com.ssafy.finalbe.model.service;
+
+@Service
+public class ChartServiceImpl {
+
+}

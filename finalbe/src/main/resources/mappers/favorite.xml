@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.finalbe.model.mapper.FavoriteMapper">
+
+	<resultMap type="FavoriteAptDto" id="aptMap">
+		<result column="apt_id" property="aptid"/>
+		<result column="user_id" property="userid"/>
+		<result column="apt_code" property="aptcode"/>
+		<result column="apt_address" property="aptaddress"/>
+		<result column="apt_price" property="aptprice"/>
+		<result column="apt_name" property="aptname"/>
+		<result column="apt_floor" property="aptfloor"/>
+	</resultMap>
+	
+	<resultMap type="FavoriteHouseDto" id="houseMap">
+		<result column="house_id" property="houseid"/>
+		<result column="user_id" property="userid"/>
+		<result column="house_address" property="houseaddress"/>
+		<result column="house_price" property="houseprice"/>
+		<result column="house_area" property="housearea"/>
+		<result column="house_type" property="housetype"/>
+	</resultMap>
+
+						<!-- insert -->
+	<insert id="aptInsert" parameterType="FavoriteAptDto">
+		insert into favorite_apt (user_id, apt_code, apt_address, apt_price, apt_name, apt_floor)
+		values(#{userid}, #{aptcode}, #{aptaddress},#{aptprice},#{aptname},#{aptfloor})
+	</insert>
+	
+	<insert id="houseInsert" parameterType="FavoriteHouseDto">
+		insert into favorite_house (user_id, house_address, house_price, house_area, house_type)
+		values(#{userid},#{houseaddress},#{houseprice},#{housearea},#{housetype})
+	</insert>
+
+						<!-- delete -->
+	<delete id="aptDelete" parameterType="int">
+		delete from favorite_apt
+		where apt_id = #{aptid}
+	</delete>
+	
+	<delete id="houseDelete" parameterType="int">
+		delete from favorite_house
+		where house_id = #{houseid}
+	</delete>
+	
+						<!-- selectOne -->
+	<select id="getApt" parameterType="int" resultMap="aptMap">
+		select * from favorite_apt
+		where apt_id = #{aptid}
+	</select>
+	
+	<select id="getHouse" parameterType="int" resultMap="houseMap">
+		select * from favorite_house
+		where house_id = #{houseid}
+	</select>
+	
+							<!-- selectAll -->
+	<select id="aptList" resultMap="aptMap" parameterType="String">
+		select * from favorite_apt
+		where user_id = #{userid}
+	</select>
+	
+	<select id="houseList" resultMap="houseMap" parameterType="String">
+		select * from favorite_house
+		where user_id = #{userid}
+	</select>
+</mapper>
